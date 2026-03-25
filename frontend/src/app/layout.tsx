@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
-import { ModalsProvider } from "@mantine/modals";
+import { ColorSchemeScript } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "@/styles/globals.css";
-import { theme } from "@/lib/theme";
-import { AuthProvider } from "@/components/layout/AuthProvider";
+import { Providers } from "@/components/layout/Providers";
 
 export const metadata: Metadata = {
   title: "CRS VPN — Быстрый и безопасный VPN",
@@ -22,12 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme="dark">
-          <Notifications position="top-right" />
-          <ModalsProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </ModalsProvider>
-        </MantineProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
