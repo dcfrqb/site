@@ -1,0 +1,46 @@
+:root {
+  --bg: #0A0A0F;
+  --surface: #111118;
+  --surface-elevated: #16161f;
+  --border: #1E1E2E;
+  --border-light: #2a2a3e;
+  --primary: #7840f6;
+  --text: #E2E8F0;
+  --text-muted: #64748B;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Mantine dark overrides */
+[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: var(--bg);
+  --mantine-color-default: var(--surface);
+  --mantine-color-default-border: var(--border);
+}

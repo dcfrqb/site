@@ -1,0 +1,70 @@
+version: "3.9"
+
+# ============================================================
+# CRS VPN Site — production docker-compose
+# Требует: vpn-bot запущен, сеть vpn-bot_default существует
+# ============================================================
+
+networks:
+  # Сеть бота — нужна для доступа к crs_vpn_db и crs_vpn_redis
+  vpn-bot_default:
+    external: true
+
+services:
+
+  # ─── Web API (FastAPI :8002) ──────────────────────────────
+  web-api:
+    build:
+      context: ./web-api
+      dockerfile: Dockerfile
+    container_name: crs_vpn_web_api
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:8002:8002"
+    volumes:
+      # Shared код бота (read-only)
+      - /opt/vpn-bot/src:/opt/vpn-bot/src:ro
+    networks:
+      - vpn-bot_default
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ─── Frontend (Next.js :3001) ────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_TELEGRAM_BOT_USERNAME: ${TELEGRAM_BOT_USERNAME:-crs_vpn_bot}
+        NEXT_PUBLIC_API_URL: ""
+    container_name: crs_vpn_frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3000"
+    networks:
+      - vpn-bot_default
+    depends_on:
+      web-api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
