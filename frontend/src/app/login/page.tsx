@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, Suspense } from "react";
 import {
   Box,
   Card,
@@ -10,6 +10,7 @@ import {
   Title,
   ThemeIcon,
   Alert,
+  Loader,
 } from "@mantine/core";
 import { IconShield, IconBrandTelegram, IconAlertCircle } from "@tabler/icons-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,14 +25,14 @@ declare global {
   }
 }
 
-export default function LoginPage() {
+// Вынесено в отдельный компонент для Suspense
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, setUser } = useAuthStore();
 
   const from = searchParams?.get("from") || "/dashboard";
 
-  // Если уже авторизован — редиректим
   useEffect(() => {
     if (user) {
       router.push(from);
@@ -49,7 +50,7 @@ export default function LoginPage() {
           color: "green",
         });
         router.push(from);
-      } catch (err) {
+      } catch {
         notifications.show({
           title: "Ошибка входа",
           message: "Не удалось войти через Telegram. Попробуйте снова.",
@@ -60,7 +61,6 @@ export default function LoginPage() {
     [setUser, router, from]
   );
 
-  // Инициализация Telegram Login Widget
   useEffect(() => {
     window.onTelegramAuth = handleTelegramAuth;
 
@@ -105,21 +105,11 @@ export default function LoginPage() {
           </ThemeIcon>
 
           <Stack align="center" gap="xs">
-            <Title order={2} c="white">
-              Войти в CRS VPN
-            </Title>
-            <Text c="dimmed" ta="center">
-              Используйте аккаунт Telegram для входа
-            </Text>
+            <Title order={2} c="white">Войти в CRS VPN</Title>
+            <Text c="dimmed" ta="center">Используйте аккаунт Telegram для входа</Text>
           </Stack>
 
-          <Card
-            w="100%"
-            style={{
-              background: colors.surface,
-              border: `1px solid ${colors.border}`,
-            }}
-          >
+          <Card w="100%" style={{ background: colors.surface, border: `1px solid ${colors.border}` }}>
             <Stack align="center" gap="lg">
               <ThemeIcon size="xl" color="blue" variant="light">
                 <IconBrandTelegram size={28} />
@@ -130,16 +120,10 @@ export default function LoginPage() {
                 Мы не получаем доступ к вашим сообщениям.
               </Text>
 
-              {/* Telegram Login Widget container */}
               <div id="telegram-login-container" style={{ minHeight: 50 }}>
                 {!process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME && (
-                  <Alert
-                    icon={<IconAlertCircle />}
-                    color="orange"
-                    title="Настройка"
-                  >
-                    Задайте{" "}
-                    <code>NEXT_PUBLIC_TELEGRAM_BOT_USERNAME</code> в .env
+                  <Alert icon={<IconAlertCircle />} color="orange" title="Настройка">
+                    Задайте <code>NEXT_PUBLIC_TELEGRAM_BOT_USERNAME</code> в .env
                   </Alert>
                 )}
               </div>
@@ -153,5 +137,19 @@ export default function LoginPage() {
         </Stack>
       </Container>
     </Box>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <Box style={{ minHeight: "100vh", background: colors.bg, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Loader color="violet" />
+        </Box>
+      }
+    >
+      <LoginContent />
+    </Suspense>
   );
 }
