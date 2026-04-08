@@ -70,7 +70,7 @@ export default function TermsPage() {
             <P>
               1.4. Исполнитель вправе в одностороннем порядке изменять условия
               Оферты. Новая редакция вступает в силу с момента её публикации по
-              адресу https://crs-projects.com/terms. Продолжение использования
+              адресу https://bot.crs-projects.com/terms. Продолжение использования
               услуг после публикации новой редакции означает согласие
               Пользователя с изменениями.
             </P>
@@ -99,7 +99,7 @@ export default function TermsPage() {
             <P>
               <B>Личный кабинет</B> — интерфейс взаимодействия Пользователя с
               Сервисом в Telegram-боте @crs_vpn_bot и/или на сайте
-              crs-projects.com.
+              bot.crs-projects.com.
             </P>
           </Section>
 
@@ -127,7 +127,7 @@ export default function TermsPage() {
             <P>
               4.1. Для получения услуг Пользователь выбирает тариф и период
               Подписки в Telegram-боте @crs_vpn_bot или на сайте
-              crs-projects.com и совершает оплату.
+              bot.crs-projects.com и совершает оплату.
             </P>
             <P>
               4.2. С момента зачисления денежных средств услуга считается
@@ -153,7 +153,7 @@ export default function TermsPage() {
             <P>
               5.1. Стоимость услуг определяется выбранным тарифом, действующим на
               момент оплаты. Актуальные тарифы публикуются в Telegram-боте
-              @crs_vpn_bot и на сайте crs-projects.com.
+              @crs_vpn_bot и на сайте bot.crs-projects.com.
             </P>
             <P>
               5.2. Оплата производится в российских рублях в безналичной форме
@@ -370,7 +370,7 @@ export default function TermsPage() {
               <Text component={Link} href="/privacy" c="violet" inherit>
                 Политикой конфиденциальности
               </Text>
-              , размещённой по адресу https://crs-projects.com/privacy.
+              , размещённой по адресу https://bot.crs-projects.com/privacy.
             </P>
             <P>
               10.2. Акцептуя Оферту, Пользователь даёт согласие на обработку
@@ -426,7 +426,7 @@ export default function TermsPage() {
               </Text>
             </P>
             <P>
-              <B>Сайт:</B> https://crs-projects.com
+              <B>Сайт:</B> https://bot.crs-projects.com
             </P>
             <P>
               <B>Сервис:</B> Telegram-бот{" "}
