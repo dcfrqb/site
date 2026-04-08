@@ -10,7 +10,6 @@ import {
   Divider,
 } from "@mantine/core";
 import { IconShield } from "@tabler/icons-react";
-import { Header } from "@/components/layout/Header";
 import { colors } from "@/lib/theme";
 
 export const metadata: Metadata = {
@@ -25,8 +24,6 @@ const EFFECTIVE_DATE = "08 апреля 2026 г.";
 export default function PrivacyPage() {
   return (
     <Box style={{ minHeight: "100vh", background: colors.bg }}>
-      <Header />
-
       <Container size="md" py={60}>
         <Stack gap="xl">
           <Stack gap="xs">
