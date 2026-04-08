@@ -66,7 +66,7 @@ const features = [
   {
     icon: IconGlobe,
     title: "Серверы по всему миру",
-    description: "Подключайтесь к серверам в разных странах. Обходите блокировки легко.",
+    description: "Подключайтесь к серверам в разных странах — NL, USA, FR и другие.",
   },
   {
     icon: IconDevices,
@@ -94,7 +94,7 @@ const faqs = [
   },
   {
     q: "Есть ли возврат средств?",
-    a: "Да, мы предоставляем возврат в течение 3 дней после оплаты, если у вас возникли технические проблемы.",
+    a: "Да. Возврат производится пропорционально неиспользованному периоду подписки — по заявлению в поддержку. Подробности в Публичной оферте.",
   },
 ];
 
@@ -400,6 +400,12 @@ export default function HomePage() {
               </Text>
               <Text component={Link} href="/#faq" size="sm" c="dimmed" style={{ textDecoration: "none" }}>
                 FAQ
+              </Text>
+              <Text component={Link} href="/terms" size="sm" c="dimmed" style={{ textDecoration: "none" }}>
+                Оферта
+              </Text>
+              <Text component={Link} href="/privacy" size="sm" c="dimmed" style={{ textDecoration: "none" }}>
+                Политика
               </Text>
             </Group>
           </Group>
